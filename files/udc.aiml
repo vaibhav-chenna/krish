@@ -1,15 +1,89 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<aiml>
-  <category>
-    <pattern>*</pattern>
-    <template>I have no answer for that.</template>
-  </category>
-<category>
-    <pattern>hi</pattern>
-    <template>hi</template>
-</category>
-<category>
-    <pattern>my name is vaibhav</pattern>
-    <template>hi vaibhav nice meeting u my name is krish </template>
-</category>
-</aiml>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Krish Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .chat-container {
+            width: 300px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .chat-box {
+            height: 300px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+        .input-box {
+            display: flex;
+        }
+        input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            background: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <h2>Krish Chatbot</h2>
+        <div class="chat-box" id="chat-box"></div>
+        <div class="input-box">
+            <input type="text" id="user-input" placeholder="Type a message...">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        function sendMessage() {
+            let userInput = document.getElementById("user-input").value;
+            if (userInput.trim() === "") return;
+            
+            let chatBox = document.getElementById("chat-box");
+            chatBox.innerHTML += `<p><strong>You:</strong> ${userInput}</p>`;
+            document.getElementById("user-input").value = "";
+            
+            setTimeout(() => {
+                let botResponse = getBotResponse(userInput);
+                chatBox.innerHTML += `<p><strong>Krish:</strong> ${botResponse}</p>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+            }, 500);
+        }
+
+        function getBotResponse(input) {
+            let responses = {
+                "hi": "Hello! How can I assist you?",
+                "how are you": "I'm just a chatbot, but I'm doing great!",
+                "what's your name": "I'm Krish, your virtual assistant.",
+                "bye": "Goodbye! Have a great day!"
+            };
+            
+            let lowerInput = input.toLowerCase();
+            return responses[lowerInput] || "I'm not sure how to respond to that.";
+        }
+    </script>
+</body>
+</html>
+<delay></delay>
